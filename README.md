@@ -11,10 +11,9 @@
 1. **Klon Repositori**
 
     ```bash
-    git clone https://github.com/adirasakhi/ukk-perpus-main-test.git
-    cd ukk-perpus-main-test
-    composer install
-    npm install
+    git clone https://github.com/madkilin/SMIRS.git
+    cd SMIRS
+    composer install (or composer update)
     cp .env.example .env
     ```
 
@@ -22,7 +21,7 @@
 
     ```conf
     APP_DEBUG=true
-    DB_DATABASE=perpus1
+    DB_DATABASE=db_smirs
     DB_USERNAME=nama-pengguna-anda
     DB_PASSWORD=kata-sandi-anda
     ```
@@ -38,7 +37,5 @@
 4. **Mulai Situs Web**
 
     ```bash
-    npm run dev
-    # Jalankan di terminal yang berbeda
     php artisan serve
     ```
