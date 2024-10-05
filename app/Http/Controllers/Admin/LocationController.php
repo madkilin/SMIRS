@@ -69,9 +69,9 @@ class LocationController extends Controller
     {
         $user = auth()->user();
         $divisionCategory = $user->division->category;
-        if($user->role_id == 1 && 3) {
+        if ($user->role_id == 1 || $user->role_id == 3) {
             $inventories = Inventory::all();
-        }else{
+        } else {
             $inventories = Inventory::where('category', $divisionCategory)->get();
         }
 

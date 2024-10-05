@@ -106,7 +106,7 @@
                                         <div class="form-group mandatory">
                                             <h6 class="card-title">Foto Barang</h6>
                                             <p class="card-text">
-                                                Gunakan foto dengan rasio 3:4 agar tidak terpotong dan pastikan ukuran foto maksimal 500KB.
+                                                Gunakan foto dengan maksimal 500KB.
                                             </p>
                                             <input type="file" name="image" class="image-crop-filepond" image-crop-aspect-ratio="3:4" data-max-file-size="500KB">
                                         </div>

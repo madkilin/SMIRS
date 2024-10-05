@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable - Mazer Admin Dashboard</title>
+    <title>SMIRS Medina</title>
 
 <link rel="stylesheet" href="{{asset('mazer/assets/extensions/filepond/filepond.css')}}" />
 <link

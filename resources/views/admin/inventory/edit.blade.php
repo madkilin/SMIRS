@@ -114,7 +114,7 @@
                                         <div class="form-group">
                                             <h6 class="card-title">Foto Barang (optional)</h6>
                                             <p class="card-text">
-                                                Gunakan foto dengan rasio 3:4 agar tidak terpotong dan pastikan ukuran foto maksimal 500KB.
+                                                Gunakan foto dengan maksimal 500KB.
                                             </p>
                                             <input type="file" name="image" class="image-crop-filepond" accept="image/*" data-max-file-size="500KB">
                                         </div>
@@ -122,7 +122,7 @@
 
                                     <!-- Submit Buttons -->
                                     <div class="col-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary me-1 mb-1">Perbarui</button>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Atur Ulang</button>
                                     </div>
                                 </div>

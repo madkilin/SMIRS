@@ -31,7 +31,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Redirect to the home/dashboard page
-            return redirect()->route('locations.index')->with('success', 'Login berhasil.');
+            return redirect()->route('admin.admin.dashboard')->with('success', 'Login berhasil.');
         }
 
         // Handle login failure

@@ -29,7 +29,7 @@
                 <h5 class="card-title">Kelola Divisi</h5>
                 <div class="buttons">
                     <a href="{{ route('admin.divisions.create') }}" class="btn icon btn-primary">
-                        <i class="bi bi-plus-circle me-2"></i>Tambah Divisi
+                        <i class="bi bi-plus-circle me-2"></i>Tambah
                     </a>
                 </div>
             </div>

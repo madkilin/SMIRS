@@ -28,6 +28,16 @@ class DashboardController extends Controller
         $categories = $inventoryByCategory->pluck('category');
         $categoryCounts = $inventoryByCategory->pluck('total');
 
+        // Count users by division
+        $usersByDivision = User::select('division_id', \DB::raw('count(*) as total'))
+            ->groupBy('division_id')
+            ->with('division') // Eager load division data
+            ->get();
+
+        // Prepare the data for the users-by-division chart
+        $divisionLabels = $usersByDivision->pluck('division.name');
+        $userCountsByDivision = $usersByDivision->pluck('total');
+
         return view('admin.dashboard', compact(
             'locationsCount',
             'divisionsCount',
@@ -35,7 +45,9 @@ class DashboardController extends Controller
             'usersCount',
             'suppliersCount',
             'categories',
-            'categoryCounts'
+            'categoryCounts',
+            'divisionLabels',
+            'userCountsByDivision'
         ));
     }
 }

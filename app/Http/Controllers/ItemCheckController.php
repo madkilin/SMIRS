@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\ItemCheckExport;
 use Maatwebsite\Excel\Facades\Excel;
+
 class ItemCheckController extends Controller
 {
     /**
@@ -18,9 +19,9 @@ class ItemCheckController extends Controller
         $user = auth()->user();
         $inventories = $location->inventories()->with('unit')->get();
         $divisionCategory = $user->division->category;
-        if($user->role_id == 1 && 3) {
+        if ($user->role_id == 1 || $user->role_id == 3) {
             $inventories = $location->inventories()->with('unit')->get();
-        }else{
+        } else {
             $inventories = $location->inventories()->with('unit')->where('category', $divisionCategory)->get();
         }
 
@@ -79,16 +80,15 @@ class ItemCheckController extends Controller
 
 
 
-public function exportPdf(Location $location)
-{
-    $itemChecks = ItemCheck::where('location_id', $location->id)->with(['user', 'inventory'])->get();
-    $pdf = Pdf::loadView('exports.item_check_pdf', compact('itemChecks', 'location'));
+    public function exportPdf(Location $location)
+    {
+        $itemChecks = ItemCheck::where('location_id', $location->id)->with(['user', 'inventory'])->get();
+        $pdf = Pdf::loadView('exports.item_check_pdf', compact('itemChecks', 'location'));
 
-    return $pdf->download('item_check_history.pdf');
-}
-public function exportExcel(Location $location)
-{
-    return Excel::download(new ItemCheckExport($location), 'item_check_history.xlsx');
-}
-
+        return $pdf->download('item_check_history.pdf');
+    }
+    public function exportExcel(Location $location)
+    {
+        return Excel::download(new ItemCheckExport($location), 'item_check_history.xlsx');
+    }
 }

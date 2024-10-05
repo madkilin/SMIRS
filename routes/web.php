@@ -33,7 +33,7 @@ Route::fallback(function () {
     if (Auth::check()) {
         return redirect()->route('admin.admin.dashboard')->with('error', 'Halaman yang Anda cari tidak ditemukan.');
     }
-    
+
     return redirect()->route('login')->with('error', 'Halaman tidak ditemukan. Silakan login terlebih dahulu.');
 });
 Route::get('/login', function () {
@@ -69,4 +69,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('users', UserController::class)->middleware('role:1,2');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('updateprofile/{user}', [UserController::class, 'updateprofile'])->name('updateprofile');
+    Route::put('updateprofile/{user}/action', [UserController::class, 'updateprofileaction'])->name('updateprofileaction');
 });
