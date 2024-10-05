@@ -95,7 +95,7 @@
                                     <div class="col-md-6 col-12">
                                         <h6 class="card-title">Foto Profil (optional)</h6>
                                         <input type="file" class="image-crop-filepond" name="profile_photo" />
-                                        <p class="card-text">Gunakan foto dengan rasio 1:1 agar tidak terpotong dan pastikan ukuran foto maksimal 500KB.</p>
+                                        <p class="card-text">Gunakan foto dengan maksimal 500KB.</p>
                                     </div>
 
                                     <div class="col-12 d-flex justify-content-end">

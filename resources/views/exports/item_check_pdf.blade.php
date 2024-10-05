@@ -10,10 +10,10 @@
     <table border="1">
         <thead>
             <tr>
-                <th>Nama Barang</th>
+                <th>Nama Inventaris</th>
                 <th>Status</th>
                 <th>Keterangan</th>
-                <th>DiCek Oleh</th>
+                <th>Dicek Oleh</th>
                 <th>Tanggal Pengecekan</th>
             </tr>
         </thead>

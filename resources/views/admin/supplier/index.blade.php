@@ -30,7 +30,7 @@
                 <h5 class="card-title">Kelola Pemasok</h5>
                 <div class="buttons">
                     <a href="{{ route('admin.suppliers.create') }}" class="btn icon btn-primary">
-                        <i class="bi bi-plus-circle me-2"></i>Tambah Pemasok
+                        <i class="bi bi-plus-circle me-2"></i>Tambah
                     </a>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                                 <td>
                                     <div class="d-flex justify-content-start">
 
-                                        <a href="{{ route('admin.suppliers.edit', $supplier->id) }}" class="btn btn-warning me-1 mb-1">
+                                        <a href="{{ route('admin.suppliers.edit', $supplier->id) }}" class="btn btn-primary me-1 mb-1">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <form action="{{ route('admin.suppliers.destroy', $supplier->id) }}" method="POST" style="display:inline;">

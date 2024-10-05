@@ -141,7 +141,6 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Line Chart Data
     var lineChart = document.getElementById('lineChart').getContext('2d');
     new Chart(lineChart, {
         type: 'pie',
@@ -150,7 +149,7 @@
         datasets: [{
             label: 'Jumlah Inventaris',
             data: @json($categoryCounts),
-            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8'], // Warna sesuai permintaan
+            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8'],
             borderWidth: 1
         }]
         },
@@ -164,11 +163,11 @@
     new Chart(pieChart, {
         type: 'pie',
         data: {
-            labels: ['Lokasi', 'Categories', 'Inventory', 'Users'],
+            labels: {!! json_encode($divisionLabels) !!},
             datasets: [{
-                label: 'Data Breakdown',
-                data: [{{ $locationsCount }}, {{ $divisionsCount }}, {{ $inventoryCount }}, {{ $usersCount }}],
-                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+                label: 'Users by Division',
+                data: {!! json_encode($userCountsByDivision) !!},
+                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8', '#6c757d']
             }]
         },
         options: {

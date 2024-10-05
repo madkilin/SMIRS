@@ -30,7 +30,7 @@
                 <h5 class="card-title">Kelola Lokasi</h5>
                 <div class="buttons">
                     <a href="{{ route('admin.locations.create') }}" class="btn icon btn-primary">
-                        <i class="bi bi-plus-circle me-2"></i>Tambah Lokasi
+                        <i class="bi bi-plus-circle me-2"></i>Tambah
                     </a>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                 <td>
                                     <div class="d-flex justify-content-start">
 
-                                        <a href="{{ route('admin.locations.edit', $location->id) }}" class="btn btn-warning me-1 mb-1">
+                                        <a href="{{ route('admin.locations.edit', $location->id) }}" class="btn btn-primary me-1 mb-1">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <form action="{{ route('admin.locations.destroy', $location->id) }}" method="POST" style="display:inline;">

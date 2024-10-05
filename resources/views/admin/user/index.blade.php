@@ -24,7 +24,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title">Kelola User</h5>
+                <h4 class="card-title">Kelola User</h4>
                 @if(Auth::user()->role_id == 1) <!-- Hanya tampilkan tombol "Tambah" untuk admin -->
                     <div class="buttons">
                         <a href="{{ route('admin.users.create') }}" class="btn icon btn-primary"><i class="bi bi-person-plus-fill me-2"></i>Tambah</a>
@@ -75,7 +75,7 @@
                                     @if(Auth::user()->role_id == 1) <!-- Hanya tampilkan aksi untuk admin -->
                                         <td>
                                             <div class="d-flex justify-content-start">
-                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning me-1 mb-1"><i class="bi bi-pencil-fill"></i></a>
+                                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-primary me-1 mb-1"><i class="bi bi-pencil-square"></i></a>
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')

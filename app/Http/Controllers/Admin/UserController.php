@@ -17,24 +17,24 @@ class UserController extends Controller
     {
         // Ambil user yang sedang login
         $loggedInUser = Auth::user();
-    
+
         // Jika role_id pengguna yang sedang login adalah 2
         if ($loggedInUser->role_id == 2) {
             // Ambil user dengan role_id 4 dan division->name yang sama dengan user yang sedang login
             $users = User::with('role', 'division') // Pastikan user memiliki relasi ke 'division'
-                        ->where('role_id', 4)
-                        ->whereHas('division', function($query) use ($loggedInUser) {
-                            $query->where('name', $loggedInUser->division->name);
-                        })
-                        ->get();
+                ->where('role_id', 4)
+                ->whereHas('division', function ($query) use ($loggedInUser) {
+                    $query->where('name', $loggedInUser->division->name);
+                })
+                ->get();
         } else {
             // Jika bukan role_id 2, ambil semua data users dengan role
             $users = User::with('role')->get();
         }
-    
+
         return view('admin.user.index', compact('users'));
     }
-    
+
 
     public function create()
     {
@@ -149,4 +149,55 @@ class UserController extends Controller
         $roles = Role::all();
         $divisions = Division::all();
         return view('admin.profile.index', compact('user', 'roles', 'divisions'));
-    }}
+    }
+    public function updateprofileaction(Request $request, User $user)
+    {
+        // Validate input fields
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'division_id' => 'required|integer',
+            'role_id' => 'required|integer',
+            'phone' => 'required|string|max:15',
+            'profile_photo' => 'nullable|image|max:500',
+        ], [
+            'name.required' => 'Nama pengguna harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'division_id.required' => 'Division ID harus diisi.',
+            'role_id.required' => 'Role ID harus diisi.',
+            'phone.required' => 'Nomor telepon harus diisi.',
+            'profile_photo.image' => 'File harus berupa gambar.',
+            'profile_photo.max' => 'Ukuran gambar maksimal 500KB.',
+        ]);
+
+        // Prepare the data, excluding the password if not filled
+        $data = $request->except('password');
+
+        // Update password only if it is provided
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'required|string|min:8',  // Add confirmation check for password
+            ]);
+            $data['password'] = Hash::make($request->password);
+        }
+
+        // Handle profile photo upload
+        if ($request->hasFile('profile_photo')) {
+            // Optional: Delete the old profile photo if it exists
+            if ($user->profile_photo) {
+                \Storage::delete($user->profile_photo);  // Remove old photo from storage
+            }
+
+            // Store new profile photo
+            $data['profile_photo'] = $request->file('profile_photo')->store('profile_photos', 'public');
+        }
+
+        // Update the user with the new data
+        $user->update($data);
+
+        // Redirect with success message
+        return redirect()->route('admin.admin.dashboard')->with('success', 'Pengguna berhasil diperbarui.');
+    }
+}

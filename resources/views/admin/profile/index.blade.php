@@ -37,7 +37,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="form" data-parsley-validate>
+                            <form action="{{ route('admin.updateprofileaction', $user->id) }}" method="POST" enctype="multipart/form-data" class="form" data-parsley-validate>
                                 @csrf
                                 @method('PUT') <!-- Metode PUT untuk pembaruan -->
                                 <div class="row">
@@ -83,7 +83,7 @@
                                     <div class="col-md-6 col-12" hidden>
                                         <fieldset class="form-group mandatory">
                                             <label for="role_id" class="form-label">Peran</label>
-                                            <select name="role_id" id="role_id" class="form-select" disabled>
+                                            <select name="role_id" id="role_id" class="form-select">
                                                 @foreach($roles as $role)
                                                     <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                                 @endforeach
@@ -103,7 +103,7 @@
                                     </div>
 
                                     <div class="col-12 d-flex justify-content-end">
-                                        <button type="submit" class="btn btn-primary me-1 mb-1">Perbarui</button>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Atur Ulang</button>
                                     </div>
                                 </div>

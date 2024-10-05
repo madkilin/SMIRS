@@ -33,7 +33,7 @@ class ItemCheckExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['Nama Barang','Status','Keterangan', 'DiCek Oleh', 'Tanggal Pengecekan
+        return ['Nama Barang','Status','Keterangan', 'Dicek Oleh', 'Tanggal Pengecekan
 '];
     }
 }
