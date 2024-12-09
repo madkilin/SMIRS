@@ -95,7 +95,7 @@
                                     <div class="col-md-6 col-12">
                                         <h6 class="card-title">Foto Profil</h6>
                                         <p class="card-text">Gunakan foto dengan rasio 1:1 agar tidak terpotong dan pastikan ukuran foto maksimal 500KB.</p>
-                                        <input type="file" name="profile_photo" class="form-control" accept="image/*">
+                                        <input type="file" class="image-crop-filepond" name="profile_photo" />
                                         <!-- Show current profile picture if available -->
                                         @if($user->profile_photo)
                                             <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="Foto Profil" width="80" class="mt-2">

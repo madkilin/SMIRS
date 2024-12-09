@@ -26,15 +26,13 @@
 
     <section class="section">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Cek Inventaris Ruangan {{ $location->name }}</h4>
-                            <p class="text-subtitle text-muted">
-                                Cek Inventaris sesuai dengan keadaan dan pastikan data yang dicek sudah benar.
-                            </p>
-                            <div class="text-end">
-                                <a href="{{ route('locations.index') }}" class="btn btn-secondary">Kembali</a>
+
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="card-title">Cek Inventaris Ruangan {{ $location->name }}</h4>
+                                    <div class="buttons">
+                                        <a href="{{ route('locations.index') }}" class="btn btn-secondary">Kembali</a>
+                                    </div>
                             </div>
-            </div>
             <div class="card-body">
                 <form action="{{ route('item_checks.store', $location->id) }}" method="POST">
                     @csrf
@@ -63,7 +61,7 @@
                                             <option value="bagus">Bagus</option>
                                             <option value="hilang">Hilang</option>
                                             <option value="rusak">Rusak</option>
-                                            <option value="butuh_perbaikan">Butuh Perbaikan</option>
+                                            <option value="perbaikan">Perbaikan</option>
                                         </select>
                                     </td>
                                     <td>

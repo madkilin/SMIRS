@@ -35,7 +35,7 @@ class ItemCheckController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'inventories.*.status' => 'required|in:bagus,hilang,rusak,butuh_perbaikan',
+            'inventories.*.status' => 'required|in:bagus,hilang,rusak,perbaikan',
             'inventories.*.description' => 'nullable|string',
         ]);
 
@@ -63,7 +63,7 @@ class ItemCheckController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Pengecekan barang berhasil disimpan.');
+        return redirect()->route('item_checks.history', $location)->with('success', 'Pengecekan barang berhasil disimpan.');
     }
 
 

@@ -165,7 +165,7 @@
         data: {
             labels: {!! json_encode($divisionLabels) !!},
             datasets: [{
-                label: 'Users by Division',
+                label: 'Jumlah User',
                 data: {!! json_encode($userCountsByDivision) !!},
                 backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8', '#6c757d']
             }]

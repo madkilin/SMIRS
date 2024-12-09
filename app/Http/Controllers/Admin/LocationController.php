@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Inventory;
 use App\Models\Location;
 use App\Models\LocationItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -131,5 +132,20 @@ class LocationController extends Controller
     {
         $locations = Location::all();
         return view('admin.allocation.index-add', compact('locations'));
+    }
+    public function exportPdf(Location $location)
+    {
+        // Get all inventories for this location, with quantity from the pivot table
+        $inventories = $location->inventories->map(function ($inventory) {
+            return [
+                'Nama Barang' => $inventory->name,
+                'Quantity' => $inventory->pivot->quantity,
+            ];
+        });
+
+        // Generate PDF with the data
+        $pdf = Pdf::loadView('exports.kartu_inventaris_medina_pdf', compact('inventories', 'location'));
+
+        return $pdf->download('kartu_inventaris_medina.pdf');
     }
 }

@@ -25,9 +25,9 @@
 
     <section class="section">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>Riwayat Pengecekan Ruangan {{ $location->name }}</h4>
-                <div class="text-end">
+                <div class="buttons">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle me-1" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"

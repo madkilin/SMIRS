@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Admin User',
-                'email' => 'admin@example.com',
+                'email' => 'admin@medina.com',
                 'password' => Hash::make('password'), // Ubah sesuai keperluan
                 'role_id' => 1, // Admin
                 'division_id' => 1,
@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Regular User',
-                'email' => 'user@example.com',
+                'email' => 'user@medina.com',
                 'password' => Hash::make('password'), // Ubah sesuai keperluan
                 'role_id' => 2, // User
                 'division_id' => 2,
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Gudang',
-                'email' => 'Gudang@example.com',
+                'email' => 'gudang@medina.com',
                 'password' => Hash::make('password'), // Ubah sesuai keperluan
                 'role_id' => 3, // User
                 'division_id' => 2,

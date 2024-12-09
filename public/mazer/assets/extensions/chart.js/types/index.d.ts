@@ -683,7 +683,7 @@ export interface Defaults extends CoreChartOptions<ChartType>, ElementChartOptio
    * If the values would be copied, the runtime change would not take effect. By routing, the
    * fallback is evaluated at each access, so its always up to date.
    *
-   * Example:
+   * example:
    *
    *   defaults.route('elements.arc', 'backgroundColor', '', 'color')
    *    - reads the backgroundColor from defaults.color when undefined locally

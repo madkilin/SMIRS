@@ -17,12 +17,12 @@ class AdminSeeder extends Seeder
     {
         // Create an admin user
         User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password123'), // Admin password
-            'division' => 'Administration',
-            'role_id' => 1, // Assuming 1 is for the admin role in your 'roles' table
-            'phone' => '1234567890',
+            // 'name' => 'Admin User',
+            // 'email' => 'admin@example.com',
+            // 'password' => Hash::make('password123'), // Admin password
+            // 'division' => 'Administration',
+            // 'role_id' => 1, // Assuming 1 is for the admin role in your 'roles' table
+            // 'phone' => '1234567890',
         ]);
     }
 }

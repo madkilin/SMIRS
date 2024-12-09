@@ -26,8 +26,13 @@
         <div class="row match-height">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Alokasi Inventaris</h4>
+                        <a href="{{ route('cetakKartu',$location->id) }}" class="btn icon btn-primary">
+                            <i class="bi bi-plus-circle me-2"></i>Cetak Kartu Inventaris
+                        </a>
+                    </div>
+                    <div class="card-body">
                         <p class="text-subtitle text-muted">Alokasikan Inventaris/barang sesuai dengan tempat yang sesuai.</p>
                         <p>Barang Tersedia Di lokasi: {{ $location->name }}</p>
                         <ul>
@@ -38,8 +43,8 @@
                                 <li>dan {{ $location->inventories->count() - 10 }} barang lainnya...</li>
                             @endif
                         </ul>
-                        
                     </div>
+                    
                     <div class="card-content">
                         <div class="card-body">
                             <form action="{{ route('admin.location.action.inventories', $location->id) }}" method="POST">
@@ -61,7 +66,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-group">
-                                                    <select name="inventories[0][inventory_id]" class="form-control inventorySelect" required>
+                                                    <select name="inventories[0][inventory_id]" class="form-select inventorySelect" required>
                                                         <option value="" disabled selected>Silakan pilih inventaris/barang yang akan dialokasikan</option>
                                                         @foreach($inventories as $inventory)
                                                         <option value="{{ $inventory->id }}" data-quantity="{{ $inventory->quantity }}">

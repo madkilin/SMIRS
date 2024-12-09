@@ -793,7 +793,7 @@
 		 *  @example
 		 *    $(document).ready(function() {
 		 *      var oTable = $('#example').dataTable();
-		 *      oTable.fnUpdate( 'Example update', 0, 0 ); // Single cell
+		 *      oTable.fnUpdate( 'example update', 0, 0 ); // Single cell
 		 *      oTable.fnUpdate( ['a', 'b', 'c', 'd', 'e'], $('tbody tr')[0] ); // Row
 		 *    } );
 		 */
@@ -12182,7 +12182,7 @@
 		 *         <li>'&lt;"#id" and '&gt;' - div with an ID</li>
 		 *       </ul>
 		 *     </li>
-		 *     <li>Examples:
+		 *     <li>examples:
 		 *       <ul>
 		 *         <li>'&lt;"wrapper"flipt&gt;'</li>
 		 *         <li>'&lt;lf&lt;t&gt;ip&gt;'</li>
