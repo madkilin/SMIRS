@@ -5,88 +5,83 @@ namespace App\Http\Controllers;
 use App\Models\ItemCheck;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use App\Models\LocationItem;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Exports\ItemCheckExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ItemCheckExport;
 
 class ItemCheckController extends Controller
 {
-    /**
-     * Menampilkan form untuk pengecekan barang di suatu lokasi.
-     */
     public function create(Location $location)
     {
         $user = auth()->user();
-        $inventories = $location->inventories()->with('unit')->get();
         $divisionCategory = $user->division->category;
-        if ($user->role_id == 1 || $user->role_id == 3) {
-            $inventories = $location->inventories()->with('unit')->get();
-        } else {
-            $inventories = $location->inventories()->with('unit')->where('category', $divisionCategory)->get();
+
+        // Ambil semua inventory berdasarkan lokasi
+        $locationItems = LocationItem::where('location_id', $location->id)
+            ->with('inventory') // Mengambil data inventory terkait
+            ->get();
+
+        // Filter jika user bukan admin
+        if ($user->role_id != 1 && $user->role_id != 3) {
+            $locationItems = $locationItems->filter(function ($locationItem) use ($divisionCategory) {
+                return $locationItem->inventory->category == $divisionCategory;
+            });
         }
 
-        return view('item_check_form', compact('location', 'inventories'));
+        return view('item_check_form', compact('location', 'locationItems'));
     }
 
-    /**
-     * Menyimpan pengecekan barang harian.
-     */
     public function store(Request $request, Location $location)
     {
         // Validasi input
         $validated = $request->validate([
-            'inventories.*.status' => 'required|in:bagus,hilang,rusak,butuh_perbaikan',
-            'inventories.*.description' => 'nullable|string',
+            'location_items.*.status' => 'required|in:bagus,hilang,rusak,perbaikan',
+            'location_items.*.description' => 'nullable|string',
         ]);
 
         $today = now()->toDateString();
 
-        foreach ($validated['inventories'] as $inventoryId => $data) {
-            // Cek apakah pengguna sudah melakukan pengecekan untuk barang ini hari ini
+        foreach ($validated['location_items'] as $locationItemId => $data) {
+            // Cek jika sudah pernah di-check hari ini
             $alreadyChecked = ItemCheck::where('user_id', auth()->id())
-                ->where('location_id', $location->id)
-                ->where('inventory_id', $inventoryId)
+                ->where('location_item_id', $locationItemId)
                 ->whereDate('created_at', $today)
                 ->exists();
 
             if ($alreadyChecked) {
-                return redirect()->back()->with('error', "Anda sudah melakukan pengecekan untuk barang ID {$inventoryId} hari ini.");
+                continue;
             }
 
-            // Simpan pengecekan barang
+            // Simpan ItemCheck
             ItemCheck::create([
                 'user_id' => auth()->id(),
-                'inventory_id' => $inventoryId,
+                'inventory_id' => LocationItem::find($locationItemId)->inventory_id,
                 'location_id' => $location->id,
+                'location_item_id' => $locationItemId,
                 'status' => $data['status'],
                 'description' => $data['description'] ?? '',
             ]);
         }
 
-        return redirect()->back()->with('success', 'Pengecekan barang berhasil disimpan.');
+        return redirect()->route('item_checks.history', $location)->with('success', 'Pengecekan barang berhasil disimpan.');
     }
 
 
 
-    /**
-     * Menampilkan riwayat pengecekan barang di suatu lokasi.
-     */
     public function history(Location $location)
     {
-        // Ambil riwayat pengecekan barang
-        $itemChecks = ItemCheck::where('location_id', $location->id)->with(['user', 'inventory'])->get();
+        $itemChecks = ItemCheck::with(['user', 'inventory'])->where('location_id', $location->id)->latest()->paginate(10);
         return view('item_check_history', compact('itemChecks', 'location'));
     }
 
-
-
     public function exportPdf(Location $location)
     {
-        $itemChecks = ItemCheck::where('location_id', $location->id)->with(['user', 'inventory'])->get();
+        $itemChecks = ItemCheck::with(['user', 'inventory'])->where('location_id', $location->id)->get();
         $pdf = Pdf::loadView('exports.item_check_pdf', compact('itemChecks', 'location'));
-
         return $pdf->download('item_check_history.pdf');
     }
+
     public function exportExcel(Location $location)
     {
         return Excel::download(new ItemCheckExport($location), 'item_check_history.xlsx');

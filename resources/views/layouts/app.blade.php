@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/app-dark.css') }}">
     <link rel="stylesheet" href="{{ asset('mazer/assets/compiled/css/table-datatable.css') }}">
+    <link rel="stylesheet" href="{{ asset('mazer/assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+    <link rel="stylesheet" href="{{ asset('mazer/assets/extensions/flatpickr/flatpickr.min.css')}}">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    
 </head>
 
 <body>
@@ -102,22 +109,23 @@
                                 </a>
                                 <ul class="submenu">
                                     <li
-                                        class="submenu-item {{ Request::routeIs('admin.users.index') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.users.index') }}" class="submenu-link">User</a>
-                                    </li>
-                                    <li
                                         class="submenu-item {{ Request::routeIs('admin.divisions.index') ? 'active' : '' }}">
                                         <a href="{{ route('admin.divisions.index') }}" class="submenu-link">
                                             <span>Divisi</span>
                                         </a>
                                     </li>
+                                    <li
+                                        class="submenu-item {{ Request::routeIs('admin.users.index') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.users.index') }}" class="submenu-link">User</a>
+                                    </li>
+                                    
                                 </ul>
                             </li>
                         @elseif(Auth::user()->role_id == 2)
                             <!-- User dengan role_id 2 -->
                             <li class="sidebar-item has-sub {{ Request::is('admin/users*') ? 'active' : '' }}">
                                 <a href="#" class="sidebar-link">
-                                    <i class="bi bi-person-fill"></i> <!-- Anda bisa mengganti ikon jika diperlukan -->
+                                    <i class="bi bi-person-fill"></i>
                                     <span>Anggota</span> <!-- Nama menu berubah menjadi Anggota -->
                                 </a>
                                 <ul class="submenu">
@@ -140,15 +148,15 @@
                                 </a>
                                 <ul class="submenu">
                                     <li
-                                        class="submenu-item {{ Request::routeIs('admin.inventory.index') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.inventory.index') }}"
-                                            class="submenu-link">Inventaris</a>
-                                    </li>
-                                    <li
                                         class="submenu-item {{ Request::routeIs('admin.suppliers.index') ? 'active' : '' }}">
                                         <a href="{{ route('admin.suppliers.index') }}"
                                             class="submenu-link">Pemasok</a>
                                     </li>
+                                    <li
+                                    class="submenu-item {{ Request::routeIs('admin.inventory.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.inventory.index') }}"
+                                        class="submenu-link">Inventaris</a>
+                                </li>
                                 </ul>
                             </li>
                         @endif
@@ -163,14 +171,14 @@
                                 </a>
                                 <ul class="submenu">
                                     <li
-                                        class="submenu-item {{ Request::routeIs('admin.alokasi.index') ? 'active' : '' }}">
-                                        <a href="{{ route('admin.alokasi.index') }}" class="submenu-link">Alokasi</a>
-                                    </li>
-                                    <li
                                         class="submenu-item {{ Request::routeIs('admin.locations.index') ? 'active' : '' }}">
                                         <a href="{{ route('admin.locations.index') }}"
                                             class="submenu-link">Lokasi</a>
                                     </li>
+                                    <li
+                                    class="submenu-item {{ Request::routeIs('admin.alokasi.index') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.alokasi.index') }}" class="submenu-link">Alokasi</a>
+                                </li>
                                 </ul>
                             </li>
                             @elseif(Auth::user()->role_id == 2)
@@ -188,17 +196,27 @@
                                 </ul>
                             </li>
                         @endif
-
                         @if (Auth::user()->role_id == 1 ||
                                 Auth::user()->role_id == 2 ||
                                 Auth::user()->role_id == 4)
+                        <li class="sidebar-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
+                            <a href="{{ route('locations.index') }}" class="sidebar-link">
+                                <i class="bi bi-clipboard2-check-fill"></i>
+                                <span>Monitoring Inventaris</span>
+                            </a>
+                        </li>
+                                                    
+                        @endif
+                        @if (Auth::user()->role_id == 1 ||
+                                Auth::user()->role_id == 3)
                             <!-- Admin, Gudang, Kepala Inventaris, or Inventaris -->
-                            <li class="sidebar-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
-                                <a href="{{ route('locations.index') }}" class="sidebar-link">
+                            <li class="sidebar-item {{ Request::routeIs('admin.reports.item_checks') ? 'active' : '' }}">
+                                <a href="{{ route('admin.reports.item_checks') }}" class="sidebar-link">
                                     <i class="bi bi-clipboard2-check-fill"></i>
-                                    <span>Monitoring Inventaris</span>
+                                    <span>Laporan Inventaris</span>
                                 </a>
                             </li>
+                            
                         @endif
                     </ul>
                 </div>
@@ -305,6 +323,13 @@
     <script src="{{ asset('mazer/assets/compiled/js/app.js') }}"></script>
     <script src="{{ asset('mazer/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script src="{{ asset('mazer/assets/static/js/pages/simple-datatables.js') }}"></script>
+    <script src="{{ asset('mazer/assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>   
+    <script src="{{ asset('mazer/assets/extensions/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('mazer/assets/static/js/pages/date-picker.js') }}"></script>
+
+<script src="{{ asset('mazer/assets/static/js/pages/form-element-select.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 </body>
 

@@ -26,7 +26,7 @@ class Inventory extends Model
      */
     public function locations()
     {
-        return $this->belongsToMany(Location::class, 'location_inventory')->withPivot('quantity');
+        return $this->belongsToMany(Location::class, 'location_inventory');
     }
 
     /**
@@ -47,5 +47,9 @@ class Inventory extends Model
     public function Division()
     {
         return $this->belongsTo(Division::class, 'category' ,'category');
+    }
+    public function locationItems()
+    {
+        return $this->hasMany(LocationItem::class);
     }
 }

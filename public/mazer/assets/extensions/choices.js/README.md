@@ -434,7 +434,7 @@ Pass an array of objects:
 
 **Usage:** A RegExp or string (will be passed to RegExp constructor internally) or filter function that will need to return `true` for a user to successfully add an item.
 
-**Example:**
+**example:**
 
 ```js
 // Only adds items matching the text test
@@ -475,7 +475,7 @@ new Choices(element, {
 
 **Usage:** The function that will sort choices and items before they are displayed (unless a user is searching). By default choices and items are sorted by alphabetical order.
 
-**Example:**
+**example:**
 
 ```js
 // Sorting via length of label from largest to smallest
@@ -603,7 +603,7 @@ For backward compatibility, `<option placeholder>This is a placeholder</option>`
 
 **Usage:** A custom compare function used when finding choices by value (using `setChoiceByValue`).
 
-**Example:**
+**example:**
 
 ```js
 const example = new Choices(element, {
@@ -679,7 +679,7 @@ original template function.
 
 Templates receive the full Choices config as the first argument to any template, which allows you to conditionally display things based on the options specified.
 
-**Example:**
+**example:**
 
 ```js
 const example = new Choices(element, {
@@ -737,7 +737,7 @@ const example = new Choices(element, {
 
 **Note:** Events fired by Choices behave the same as standard events. Each event is triggered on the element passed to Choices (accessible via `this.passedElement`. Arguments are accessible within the `event.detail` object.
 
-**Example:**
+**example:**
 
 ```js
 const element = document.getElementById('example');
@@ -942,7 +942,7 @@ choices.disable();
 
 This behaves the similar as passing items via the `choices` option but can be called after initialising Choices. This can also be used to add groups of choices (see example 3); Optionally pass a true `replaceChoices` value to remove any existing choices. Optionally pass a `customProperties` object to add additional data to your choices (useful when searching/filtering etc). Passing an empty array as the first parameter, and a true `replaceChoices` is the same as calling `clearChoices` (see below).
 
-**Example 1:**
+**example 1:**
 
 ```js
 const example = new Choices(element);
@@ -959,7 +959,7 @@ example.setChoices(
 );
 ```
 
-**Example 2:**
+**example 2:**
 
 ```js
 const example = new Choices(element);
@@ -975,7 +975,7 @@ example.setChoices(async () => {
 });
 ```
 
-**Example 3:**
+**example 3:**
 
 ```js
 const example = new Choices(element);
@@ -1028,7 +1028,7 @@ example.setChoices(
 
 **Usage:** Get value(s) of input (i.e. inputted items (text) or selected choices (select)). Optionally pass an argument of `true` to only return values rather than value objects.
 
-**Example:**
+**example:**
 
 ```js
 const example = new Choices(element);
@@ -1042,7 +1042,7 @@ const valueArray = example.getValue(); // returns [{ active: true, choiceId: 1, 
 
 **Usage:** Set value of input based on an array of objects or strings. This behaves exactly the same as passing items via the `items` option but can be called after initialising Choices.
 
-**Example:**
+**example:**
 
 ```js
 const example = new Choices(element);
@@ -1064,7 +1064,7 @@ example.setValue(['Four', 'Five', 'Six']);
 
 **Usage:** Set value of input based on existing Choice. `value` can be either a single string or an array of strings
 
-**Example:**
+**example:**
 
 ```js
 const example = new Choices(element, {

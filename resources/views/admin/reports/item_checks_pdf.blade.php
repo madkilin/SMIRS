@@ -3,56 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Check History PDF</title>
+    <title>Item Checks Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
             margin: 20px;
         }
-        .title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-bottom: 20px;
         }
-        .table, .table th, .table td {
+        table, th, td {
             border: 1px solid black;
         }
-        .table th, .table td {
+        th, td {
             padding: 8px;
-            text-align: center;
+            text-align: left;
         }
-        .table th {
+        th {
             background-color: #f2f2f2;
         }
-        .notes {
-            margin-top: 20px;
-            font-size: 12px;
-        }
-
-        .signature-box {
-            text-align: right;
-            margin-top: 30px;
-        }
-        
     </style>
 </head>
 <body>
-    <div class="title">
-        <p>Riwayat Pengecekan Inventaris</p>
-        <p>Ruangan {{$location->name}}</p>
-    </div>
-    <table class="table">
+    <h1>Item Checks Report</h1>
+
+    <table>
         <thead>
             <tr>
-                <th>Nama Inventaris</th>
-                <th>Status</th>
+                <th>Nama Barang</th>
+                <th>Jenis Barang</th>
+                <th>Ruangan</th>
+                <th>Kondisi</th>
                 <th>Keterangan</th>
                 <th>Dicek Oleh</th>
                 <th>Tanggal Pengecekan</th>
@@ -62,6 +46,8 @@
             @foreach($itemChecks as $check)
                 <tr>
                     <td>{{ $check->inventory->name }}</td>
+                    <td>{{ $check->inventory->category }}</td>
+                    <td>{{ $check->location->name ?? '-' }}</td>
                     <td>{{ ucfirst($check->status) }}</td>
                     <td>{{ $check->description }}</td>
                     <td>{{ $check->user->name }}</td>

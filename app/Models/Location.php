@@ -14,7 +14,7 @@ class Location extends Model
     ];
     public function inventories()
     {
-        return $this->belongsToMany(Inventory::class, 'location_inventory')->withPivot('quantity');
+        return $this->belongsToMany(Inventory::class, 'location_inventory');
     }
 
     public function itemChecks()

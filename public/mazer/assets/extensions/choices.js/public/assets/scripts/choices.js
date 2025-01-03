@@ -5392,7 +5392,7 @@ const SPACE_RE = / +(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/;
 const OR_TOKEN = '|';
 
 // Return a 2D array representation of the query, for simpler parsing.
-// Example:
+// example:
 // "^core go$ | rb$ | py$ xy$" => [["^core", "go$"], ["rb$"], ["py$", "xy$"]]
 function parseQuery(pattern, options = {}) {
   return pattern.split(OR_TOKEN).map((item) => {

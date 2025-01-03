@@ -10,9 +10,11 @@ class LocationsTableSeeder extends Seeder
     public function run()
     {
         DB::table('locations')->insert([
-            ['name' => 'Warehouse A'],
-            ['name' => 'Warehouse B'],
-            ['name' => 'Warehouse C'],
+            ['name' => 'RS-2 Server'],
+            ['name' => 'RS-1 Poi Umum'],
+            ['name' => 'RS-1 Poli Dalam'],
+            ['name' => 'RS-1 Farmasi'],
+            ['name' => 'K-1 Pendaftaran'],
         ]);
     }
 }

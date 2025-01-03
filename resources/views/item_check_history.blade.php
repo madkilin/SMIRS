@@ -25,13 +25,12 @@
 
     <section class="section">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>Riwayat Pengecekan Ruangan {{ $location->name }}</h4>
-                <div class="text-end">
+                <div class="buttons">
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Export
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -42,9 +41,9 @@
                 </div>
             </div>
             <div class="card-body">
-                @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -56,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($itemChecks as $check)
+                        @foreach ($itemChecks as $check)
                             <tr>
                                 <td>{{ $check->inventory->name }}</td>
                                 <td>{{ ucfirst($check->status) }}</td>

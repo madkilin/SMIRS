@@ -74,36 +74,36 @@ export default class DatasetController {
     /**
        * Parse array of primitive values
        * @param {object} meta - dataset meta
-       * @param {array} data - data array. Example [1,3,4]
+       * @param {array} data - data array. example [1,3,4]
        * @param {number} start - start index
        * @param {number} count - number of items to parse
        * @returns {object} parsed item - item containing index and a parsed value
        * for each scale id.
-       * Example: {xScale0: 0, yScale0: 1}
+       * example: {xScale0: 0, yScale0: 1}
        * @protected
        */
     protected parsePrimitiveData(meta: object, data: any[], start: number, count: number): object;
     /**
        * Parse array of arrays
        * @param {object} meta - dataset meta
-       * @param {array} data - data array. Example [[1,2],[3,4]]
+       * @param {array} data - data array. example [[1,2],[3,4]]
        * @param {number} start - start index
        * @param {number} count - number of items to parse
        * @returns {object} parsed item - item containing index and a parsed value
        * for each scale id.
-       * Example: {x: 0, y: 1}
+       * example: {x: 0, y: 1}
        * @protected
        */
     protected parseArrayData(meta: object, data: any[], start: number, count: number): object;
     /**
        * Parse array of objects
        * @param {object} meta - dataset meta
-       * @param {array} data - data array. Example [{x:1, y:5}, {x:2, y:10}]
+       * @param {array} data - data array. example [{x:1, y:5}, {x:2, y:10}]
        * @param {number} start - start index
        * @param {number} count - number of items to parse
        * @returns {object} parsed item - item containing index and a parsed value
        * for each scale id. _custom is optional
-       * Example: {xScale0: 0, yScale0: 1, _custom: {r: 10, foo: 'bar'}}
+       * example: {xScale0: 0, yScale0: 1, _custom: {r: 10, foo: 'bar'}}
        * @protected
        */
     protected parseObjectData(meta: object, data: any[], start: number, count: number): object;
