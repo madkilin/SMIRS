@@ -35,7 +35,6 @@
             <tr>
                 <th>Nama Barang</th>
                 <th>Jenis Barang</th>
-                <th>Kuantitas</th>
                 <th>Ruangan</th>
                 <th>Kondisi</th>
                 <th>Keterangan</th>
@@ -48,7 +47,6 @@
                 <tr>
                     <td>{{ $check->inventory->name }}</td>
                     <td>{{ $check->inventory->category }}</td>
-                    <td>{{ $check->quantity }}</td>
                     <td>{{ $check->location->name ?? '-' }}</td>
                     <td>{{ ucfirst($check->status) }}</td>
                     <td>{{ $check->description }}</td>

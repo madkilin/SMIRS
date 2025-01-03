@@ -21,19 +21,27 @@ class UsersTableSeeder extends Seeder
 
             ],
             [
-                'name' => 'Regular User',
-                'email' => 'user@medina.com',
+                'name' => 'Kepala Divisi IT',
+                'email' => 'kepala.it@medina.com',
                 'password' => Hash::make('password'), // Ubah sesuai keperluan
-                'role_id' => 2, // User
-                'division_id' => 2,
+                'role_id' => 2, // Kepala Divisi
+                'division_id' => 1,
                 'phone' => '081234567890',
             ],
             [
                 'name' => 'Gudang',
                 'email' => 'gudang@medina.com',
                 'password' => Hash::make('password'), // Ubah sesuai keperluan
-                'role_id' => 3, // User
-                'division_id' => 2,
+                'role_id' => 3, // Gudang
+                'division_id' => 5,
+                'phone' => '081234567890',
+            ],
+            [
+                'name' => 'Staf Inventaris IT',
+                'email' => 'si.it@medina.com',
+                'password' => Hash::make('password'), // Ubah sesuai keperluan
+                'role_id' => 4, // Staf
+                'division_id' => 1,
                 'phone' => '081234567890',
             ]
         ]);

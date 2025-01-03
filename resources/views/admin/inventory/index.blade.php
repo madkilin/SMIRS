@@ -21,7 +21,6 @@
             </div>
         </div>
 
-
         <section class="section">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -68,7 +67,7 @@
                                         @else
                                             <a data-bs-toggle="modal"
                                                 data-bs-target="#exampleModalCenter_{{ $inventory->id }}" href="#">
-                                                <img src="{{ asset('default/image/inventary.jpeg') }}" alt="Default Image"
+                                                <img src="{{ asset('default/image/inventory.jpg') }}" alt="Default Image"
                                                     width="32" height="32" />
                                             </a>
                                         @endif
@@ -80,10 +79,10 @@
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <form action="{{ route('admin.inventory.destroy', $inventory->id) }}"
-                                                method="POST" style="display:inline;">
+                                                method="POST" id="deleteDivisionForm-{{ $inventory->id }}" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger me-1 mb-1">
+                                                <button type="button" id="deleteButton-{{ $inventory->id }}" class="btn btn-danger me-1 mb-1">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </form>
@@ -92,32 +91,36 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
             </div>
         </section>
+
+        <!-- Modal untuk melihat gambar inventaris -->
         <div class="col-md-6 col-12">
             <div class="card">
-                <!-- Vertically Centered modal Modal -->
                 @foreach ($inventories as $inventory)
                     <div class="modal fade" id="exampleModalCenter_{{ $inventory->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-                            role="document">
+                        aria-labelledby="exampleModalCenterTitle_{{ $inventory->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ $inventory->name }}
+                                    <h5 class="modal-title" id="exampleModalCenterTitle_{{ $inventory->id }}">
+                                        {{ $inventory->name }}
                                     </h5>
                                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                         <i data-feather="x"></i>
                                     </button>
                                 </div>
-                                @if ($inventory->image != null)
-                                    <img src="{{ asset('storage/' . $inventory->image) }}" alt="Item Image" />
-                                @else
-                                    <img src="{{ asset('default/image/inventary.jpeg') }}" alt="Default Image" />
-                                @endif
+                                <div class="modal-body">
+                                    @if ($inventory->image != null)
+                                        <img src="{{ asset('storage/' . $inventory->image) }}" alt="Item Image"
+                                            class="img-fluid" />
+                                    @else
+                                        <img src="{{ asset('default/image/inventory.jpg') }}" alt="Default Image"
+                                            class="img-fluid" />
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -125,4 +128,33 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('click', function (event) {
+            if (event.target.closest('[id^="deleteButton-"]')) {
+                event.preventDefault();
+
+                const button = event.target.closest('button'); // Tombol yang diklik
+                const formId = button.id.replace('deleteButton-', 'deleteDivisionForm-'); // Ambil ID form terkait
+                const form = document.getElementById(formId); // Cari form berdasarkan ID
+
+                Swal.fire({
+                    title: 'Konfirmasi Hapus',
+                    text: "Apakah Anda yakin ingin menghapus data ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit form terkait
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

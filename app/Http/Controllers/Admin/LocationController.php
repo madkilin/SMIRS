@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;
+use App\Models\ItemCheck;
 use App\Models\Location;
 use App\Models\LocationItem;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -75,17 +76,17 @@ class LocationController extends Controller
         } else {
             $inventories = Inventory::where('category', $divisionCategory)->get();
         }
-
-        return view('admin.allocation.add-inventories', compact('location', 'inventories'));
+        $items = LocationItem::where('location_id', $location->id)->with('inventory')->get();
+        return view('admin.allocation.add-inventories', compact('location', 'inventories', 'items'));
     }
 
     public function addaction(Request $request, Location $location)
     {
         // Validasi data inventori
         $request->validate([
-            'inventories' => 'required|array', // Pastikan inventori dikirim sebagai array
-            'inventories.*.inventory_id' => 'required|exists:inventories,id', // Validasi setiap ID inventori ada
-            'inventories.*.quantity' => 'required|integer|min:1', // Validasi jumlah adalah integer positif
+            'inventories' => 'required|array',
+            'inventories.*.inventory_id' => 'required|exists:inventories,id',
+            'inventories.*.quantity' => 'required|integer|min:1',
         ], [
             'inventories.required' => 'Data inventori harus disertakan.',
             'inventories.*.inventory_id.required' => 'ID inventori harus diisi.',
@@ -105,21 +106,17 @@ class LocationController extends Controller
                 $inventory->quantity -= $inventoryData['quantity'];
                 $inventory->save(); // Simpan inventori yang diperbarui
 
-                // Perbarui atau buat data location_inventory untuk lokasi tertentu
-                LocationItem::updateOrCreate(
-                    [
+                // Buat entri di tabel location_inventory sebanyak jumlah yang diminta
+                for ($i = 0; $i < $inventoryData['quantity']; $i++) {
+                    LocationItem::create([
                         'location_id' => $location->id,
-                        'inventory_id' => $inventory->id
-                    ],
-                    [
-                        // Tambahkan jumlah alih-alih menggantinya
-                        'quantity' => DB::raw('quantity + ' . $inventoryData['quantity'])
-                    ]
-                );
+                        'inventory_id' => $inventory->id,
+                    ]);
+                }
             } else {
                 // Jika tidak ada cukup jumlah, redirect kembali dengan error
                 return redirect()->back()->withErrors([
-                    'message' => 'Jumlah tidak cukup tersedia untuk ' . $inventory->name
+                    'message' => 'Jumlah tidak cukup tersedia untuk ' . $inventory->name,
                 ]);
             }
         }
@@ -128,10 +125,56 @@ class LocationController extends Controller
         return redirect()->route('admin.alokasi.index')->with('success', 'Inventori untuk lokasi berhasil diperbarui.');
     }
 
+
     public function indexadd()
     {
         $locations = Location::all();
         return view('admin.allocation.index-add', compact('locations'));
+    }
+    public function toWarehouse(Location $location)
+    {
+        $user = auth()->user();
+        $divisionCategory = $user->division->category;
+
+        // Ambil semua inventory berdasarkan lokasi
+        $locationItems = LocationItem::where('location_id', $location->id)
+            ->with('inventory') // Mengambil data inventory terkait
+            ->get();
+
+        // Filter jika user bukan admin
+        if ($user->role_id != 1 && $user->role_id != 3) {
+            $locationItems = $locationItems->filter(function ($locationItem) use ($divisionCategory) {
+                return $locationItem->inventory->category == $divisionCategory;
+            });
+        }
+
+        return view('admin.allocation.add-inventoriesToWH', compact('location', 'locationItems'));
+    }
+    public function returnToWarehouse(Request $request, Location $location)
+    {
+        $request->validate([
+            'return_items' => 'required|array',
+            'return_items.*' => 'exists:location_inventory,id',
+        ]);
+
+        foreach ($request->return_items as $locationItemId) {
+            $locationItem = LocationItem::findOrFail($locationItemId);
+            $inventory = $locationItem->inventory;
+
+            // Kembalikan stok ke inventaris
+            $inventory->quantity += 1;
+            $inventory->save();
+
+            // Hapus relasi pada ItemCheck
+            ItemCheck::where('location_item_id', $locationItem->id)
+                ->update(['location_item_id' => null]);
+
+            // Hapus LocationItem secara permanen
+            $locationItem->delete();
+        }
+
+        return redirect()->route('admin.location.inventories', $location->id)
+            ->with('success', 'Stok telah berhasil dikembalikan ke inventaris.');
     }
     public function exportPdf(Location $location)
     {

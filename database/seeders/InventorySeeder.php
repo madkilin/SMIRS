@@ -13,7 +13,7 @@ class InventorySeeder extends Seeder
     public function run(): void
     {
         Inventory::create([
-            'name' => 'Laptop Dell XPS',
+            'name' => 'Laptop',
             'category' => 'elektronik', // Adjusted category to match enum value
             'quantity' => 10,
             'unit_id' => 1, // Asumsikan unit PCS dengan ID 1

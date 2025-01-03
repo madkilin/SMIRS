@@ -14,18 +14,28 @@ class DivisionSeeder extends Seeder
     {
         Division::create([
             'name' => 'IT',
+            'category' => 'perangkat', // Adjusted category to match enum value
+        ]);
+
+        Division::create([
+            'name' => 'Teknisi',
             'category' => 'elektronik', // Adjusted category to match enum value
         ]);
 
         Division::create([
-            'name' => 'Health',
+            'name' => 'Kesehatan',
             'category' => 'kesehatan', // Adjusted category to match enum value
 
         ]);
 
         Division::create([
-            'name' => 'Other',
+            'name' => 'Logistik',
             'category' => 'perlengkapan', // Adjusted category to match enum value
+        ]);
+
+        Division::create([
+            'name' => 'Gudang',
+            'category' => 'lainnya', // Adjusted category to match enum value
         ]);
     }
 }

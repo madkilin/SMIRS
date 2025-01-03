@@ -46,7 +46,10 @@
                                 <td>
                                     <div class="d-flex justify-content-start">
                                         <a href="{{ route('admin.location.inventories', $location->id) }}" class="btn btn-primary me-1 mb-1">
-                                            <i class="bi bi-pencil-square"></i> Alokasi
+                                            <i class="bi bi-pencil-square"></i> Alokasi Baru
+                                        </a>
+                                        <a href="{{ route('admin.location.warehouse', $location->id) }}" class="btn btn-primary me-1 mb-1">
+                                            <i class="bi bi-pencil-square"></i> Alokasi Gudang
                                         </a>
                                     </div>
                                 </td>

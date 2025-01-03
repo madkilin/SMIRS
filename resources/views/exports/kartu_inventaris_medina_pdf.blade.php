@@ -54,11 +54,9 @@
             <tr>
                 <th>No.</th>
                 <th>Nama Barang</th>
-                <th>Kuantitas</th>
                 <th colspan="12">Pengecekan</th>
             </tr>
             <tr>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td>Jan</td>
@@ -80,7 +78,6 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $inventory['Nama Barang'] }}</td>
-                    <td>{{ $inventory['Quantity'] }}</td>
                     <!-- Placeholder cells for monthly checks -->
                     @for ($i = 0; $i < 12; $i++)
                         <td></td>

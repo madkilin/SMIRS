@@ -10,7 +10,14 @@ class ItemCheck extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'location_id', 'inventory_id', 'status', 'description'];
+    protected $fillable = [
+        'user_id',
+        'location_id',
+        'inventory_id',
+        'status',
+        'description',
+        'location_item_id'
+    ];
 
     public function user()
     {
@@ -26,12 +33,8 @@ class ItemCheck extends Model
     {
         return $this->belongsTo(Location::class);
     }
-
-    public function getQuantityAttribute()
+    public function locationItem()
     {
-        return DB::table('location_inventory')
-            ->where('location_id', $this->location_id)
-            ->where('inventory_id', $this->inventory_id)
-            ->value('quantity');
+        return $this->belongsTo(LocationItem::class)->withTrashed(); // Menambahkan withTrashed pada relasi
     }
 }

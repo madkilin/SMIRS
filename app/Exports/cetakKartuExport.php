@@ -22,7 +22,6 @@ class cetakKartuExport implements FromCollection, WithHeadings
             return [
                 'No.' => $index + 1,
                 'Nama Barang' => $inventory->name,
-                'Kuantitas' => $inventory->pivot->quantity,
                 'Pengecekan' => '', // Placeholder for monthly check columns
             ];
         });
@@ -31,7 +30,7 @@ class cetakKartuExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            ['No.', 'Nama Barang', 'Kuantitas', 'Pengecekan', '', '', '', '', '', '', '', '', '', ''],
+            ['No.', 'Nama Barang', 'Pengecekan', '', '', '', '', '', '', '', '', '', ''],
             ['', '', '', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         ];
     }

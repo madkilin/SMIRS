@@ -22,8 +22,7 @@ class ReportsExport implements FromCollection, WithHeadings
             return [
                 'Nama Barang' => $itemCheck->inventory->name,
                 'Jenis Barang' => $itemCheck->inventory->category,
-                'Kuantitas' => $itemCheck->quantity ?? 'N/A',  // Check if pivot data exists
-                'Ruangan' => $itemCheck->location->name ?? '-', // Check if location exists
+                'Ruangan' => $itemCheck->location->name ?? '-',
                 'Kondisi' => ucfirst($itemCheck->status),
                 'Keterangan' => $itemCheck->description,
                 'Dicek Oleh' => $itemCheck->user->name,
@@ -37,7 +36,6 @@ class ReportsExport implements FromCollection, WithHeadings
         return [
             'Nama Barang',
             'Jenis Barang',
-            'Kuantitas',
             'Ruangan',
             'Kondisi',
             'Keterangan',

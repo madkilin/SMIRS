@@ -46,6 +46,7 @@ Route::get('/forgot-password', function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/cetakKartu/{location}', [AdminLocationController::class, 'exportPdf'])->name('cetakKartu')->middleware('auth','role:1,3');
 
 Route::middleware(['auth', 'role:1,2,4'])->group(function () {
     // Menampilkan daftar lokasi
@@ -53,7 +54,6 @@ Route::middleware(['auth', 'role:1,2,4'])->group(function () {
 
     // Menampilkan form pengecekan barang di lokasi tertentu
     Route::get('/export-pdf/{location}', [ItemCheckController::class, 'exportPdf'])->name('export.pdf');
-    Route::get('/cetakKartu/{location}', [AdminLocationController::class, 'exportPdf'])->name('cetakKartu');
     Route::get('/export-excel/{location}', [ItemCheckController::class, 'exportExcel'])->name('export.excel');
     Route::get('monitoring/{location}/item-checks/create', [ItemCheckController::class, 'create'])->name('item_checks.create');
     Route::post('monitoring/{location}/item-checks', [ItemCheckController::class, 'store'])->name('item_checks.store');
@@ -68,6 +68,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/admin/reports/item_checks/export-excel', [ReportsController::class, 'exportExcel'])->name('export.excel')->middleware('role:1,3');
     Route::get('alokasi', [AdminLocationController::class, 'indexadd'])->name('alokasi.index')->middleware('role:1,2,3');
     Route::get('locations/{location}/addinventories', [AdminLocationController::class, 'addinventories'])->name('location.inventories')->middleware('role:1,2,3');
+    Route::get('locations/{location}/addinventoriestowharehouse', [AdminLocationController::class, 'toWarehouse'])->name('location.warehouse')->middleware('role:1,2,3');
+    Route::post('location/{location}/return-to-warehouse', [AdminLocationController::class, 'returnToWarehouse'])
+        ->name('location.returnToWarehouse');
     Route::post('locations/{location}/addinventories/action', [AdminLocationController::class, 'addaction'])->name('location.action.inventories')->middleware('role:1,2,3');
     Route::resource('suppliers', SupplierController::class)->middleware('role:1,3');
     Route::resource('units', UnitController::class)->middleware('role:1,3');

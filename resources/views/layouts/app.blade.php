@@ -125,7 +125,7 @@
                             <!-- User dengan role_id 2 -->
                             <li class="sidebar-item has-sub {{ Request::is('admin/users*') ? 'active' : '' }}">
                                 <a href="#" class="sidebar-link">
-                                    <i class="bi bi-person-fill"></i> <!-- Anda bisa mengganti ikon jika diperlukan -->
+                                    <i class="bi bi-person-fill"></i>
                                     <span>Anggota</span> <!-- Nama menu berubah menjadi Anggota -->
                                 </a>
                                 <ul class="submenu">
@@ -196,17 +196,20 @@
                                 </ul>
                             </li>
                         @endif
-
                         @if (Auth::user()->role_id == 1 ||
                                 Auth::user()->role_id == 2 ||
                                 Auth::user()->role_id == 4)
+                        <li class="sidebar-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
+                            <a href="{{ route('locations.index') }}" class="sidebar-link">
+                                <i class="bi bi-clipboard2-check-fill"></i>
+                                <span>Monitoring Inventaris</span>
+                            </a>
+                        </li>
+                                                    
+                        @endif
+                        @if (Auth::user()->role_id == 1 ||
+                                Auth::user()->role_id == 3)
                             <!-- Admin, Gudang, Kepala Inventaris, or Inventaris -->
-                            <li class="sidebar-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
-                                <a href="{{ route('locations.index') }}" class="sidebar-link">
-                                    <i class="bi bi-clipboard2-check-fill"></i>
-                                    <span>Monitoring Inventaris</span>
-                                </a>
-                            </li>
                             <li class="sidebar-item {{ Request::routeIs('admin.reports.item_checks') ? 'active' : '' }}">
                                 <a href="{{ route('admin.reports.item_checks') }}" class="sidebar-link">
                                     <i class="bi bi-clipboard2-check-fill"></i>

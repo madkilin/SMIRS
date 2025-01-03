@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                <form id="editUserForm" action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                                            <button type="submit" id="saveButton" class="btn btn-primary me-1 mb-1">Simpan</button>
                                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Atur Ulang</button>
                                         </div>
                                     </div>
@@ -112,4 +112,29 @@
         </section>
         <!-- Basic multiple Column Form section end -->
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.getElementById('saveButton').addEventListener('click', function (e) {
+            // Prevent default form submission
+            e.preventDefault();
+
+            // SweetAlert2 confirmation dialog
+            Swal.fire({
+                title: 'Konfirmasi Simpan',
+                text: "Apakah Anda yakin ingin menyimpan data ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form
+                    document.getElementById('editUserForm').submit();
+                }
+            });
+        });
+    </script>
 @endsection

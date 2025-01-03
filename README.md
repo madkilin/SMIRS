@@ -3,8 +3,8 @@
 ### Persyaratan
 
 - PHP 8.2.8 & Web Server (Apache, Lighttpd, atau Nginx)
-- Database (MariaDB v11.0.3 atau PostgreSQL)
-- Web Browser (Firefox, Safari, Opera, dll)
+- Database (MySQL atau MariaDB)
+- Web Browser (Chrome, Firefox, Safari, Opera, dll)
 
 ### Langkah-langkah
 
