@@ -199,7 +199,7 @@
                         @if (Auth::user()->role_id == 1 ||
                                 Auth::user()->role_id == 2 ||
                                 Auth::user()->role_id == 4)
-                        <li class="sidebar-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
+                        <li class="sidebar-item {{ Request::routeIs('locations.index','item_checks.create','item_checks.history') ? 'active' : '' }}">
                             <a href="{{ route('locations.index') }}" class="sidebar-link">
                                 <i class="bi bi-clipboard2-check-fill"></i>
                                 <span>Monitoring Inventaris</span>
@@ -213,7 +213,7 @@
                             <li class="sidebar-item {{ Request::routeIs('admin.reports.item_checks') ? 'active' : '' }}">
                                 <a href="{{ route('admin.reports.item_checks') }}" class="sidebar-link">
                                     <i class="bi bi-clipboard2-check-fill"></i>
-                                    <span>Laporan Inventaris</span>
+                                    <span>Laporan Pengecekan</span>
                                 </a>
                             </li>
                             

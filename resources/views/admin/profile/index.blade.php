@@ -16,8 +16,7 @@
                         <li class="breadcrumb-item">
                             <a href="index.html">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Kelola User</li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Profil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Profil</li>
                     </ol>
                 </nav>
             </div>
@@ -30,7 +29,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Update Profil</h4>
+                        <h4 class="card-title">Edit Profil</h4>
                         <p class="text-subtitle text-muted">
                             Perbarui data profil Anda dan pastikan data yang dimasukkan sudah benar.
                         </p>

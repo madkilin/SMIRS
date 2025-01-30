@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Division;
 use App\Models\Inventory;
 use App\Models\Location;
+use App\Models\LocationItem;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,6 +39,12 @@ class DashboardController extends Controller
         $divisionLabels = $usersByDivision->pluck('division.name');
         $userCountsByDivision = $usersByDivision->pluck('total');
 
+        // Calculate totalWH (total inventory * quantity)
+        $totalWH = Inventory::sum(\DB::raw('quantity'));
+
+        // Calculate totalAI (count of LocationItem model)
+        $totalAI = LocationItem::count();
+
         return view('admin.dashboard', compact(
             'locationsCount',
             'divisionsCount',
@@ -47,7 +54,9 @@ class DashboardController extends Controller
             'categories',
             'categoryCounts',
             'divisionLabels',
-            'userCountsByDivision'
+            'userCountsByDivision',
+            'totalWH',
+            'totalAI'
         ));
     }
 }

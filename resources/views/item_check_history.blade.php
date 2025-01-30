@@ -21,52 +21,57 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <section class="section">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Riwayat Pengecekan Ruangan {{ $location->name }}</h4>
-                <div class="buttons">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Export
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ route('export.pdf', $location->id) }}">PDF</a>
-                            <a class="dropdown-item" href="{{ route('export.excel', $location->id) }}">Excel</a>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>Riwayat Pengecekan Ruangan {{ $location->name }}</h4>
+                    <div class="buttons">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle me-1" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Export
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('export.pdf', $location->id) }}">PDF</a>
+                                <a class="dropdown-item" href="{{ route('export.excel', $location->id) }}">Excel</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nama Barang</th>
-                            <th>Kondisi</th>
-                            <th>Keterangan</th>
-                            <th>Dicek Oleh</th>
-                            <th>Tanggal Pengecekan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($itemChecks as $check)
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $check->inventory->name }}</td>
-                                <td>{{ ucfirst($check->status) }}</td>
-                                <td>{{ $check->description }}</td>
-                                <td>{{ $check->user->name }}</td>
-                                <td>{{ $check->created_at->format('d M Y H:i') }}</td>
+                                <th>Kode Alokasi</th>
+                                <th>Nama Barang</th>
+                                <th>Kategori</th>
+                                <th>Kondisi</th>
+                                <th>Keterangan</th>
+                                <th>Dicek Oleh</th>
+                                <th>Tanggal Pengecekan</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($itemChecks as $check)
+                                <tr>
+                                    <td>{{ $check->location_item_id }}</td>
+                                    <td>{{ $check->inventory->name }}</td>
+                                    <td>{{ $check->inventory->category }}</td>
+                                    <td>{{ ucfirst($check->status) }}</td>
+                                    <td>{{ $check->description }}</td>
+                                    <td>{{ $check->user->name }}</td>
+                                    <td>{{ $check->created_at->format('d M Y H:i') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 @endsection

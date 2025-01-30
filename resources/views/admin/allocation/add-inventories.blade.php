@@ -30,7 +30,8 @@
                             <h4 class="card-title">Alokasi Inventaris Baru - {{ $location->name }}</h4>
                             @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 3)
                                 <a href="{{ route('cetakKartu', $location->id) }}" class="btn icon btn-primary">
-                                    <i class="bi bi-plus-circle me-2"></i>Cetak Kartu Inventaris
+                                    {{-- <i class="bi bi-plus-circle me-2"></i> --}}
+                                    Cetak Kartu Inventaris
                                 </a>
                             @endif
                         </div>
@@ -56,11 +57,11 @@
                                 <form id="allocationForm"
                                     action="{{ route('admin.location.action.inventories', $location->id) }}" method="POST">
                                     @csrf
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="location_name">Location Name</label>
                                         <input type="text" id="location_name" name="location_name" class="form-control"
                                             value="{{ $location->name }}" disabled>
-                                    </div>
+                                    </div> --}}
 
                                     <table class="table table-striped" id="inventoryTable">
                                         <thead>

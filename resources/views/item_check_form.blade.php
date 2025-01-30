@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <section class="section">
         <div class="card">
@@ -40,7 +40,7 @@
                                 <th>Kode Alokasi</th>
                                 <th>Nama Barang</th>
                                 <th>Kategori</th>
-                                <th>Jumlah</th>
+                                {{-- <th>Jumlah</th> --}}
                                 <th>Kondisi</th>
                                 <th>Keterangan</th>
                             </tr>
@@ -51,7 +51,7 @@
                                     <td>{{ $locationItem->id }}</td>
                                     <td>{{ $locationItem->inventory->name }}</td>
                                     <td>{{ $locationItem->inventory->category }}</td>
-                                    <td>{{ $locationItem->inventory->quantity }}</td>
+                                    {{-- <td>{{ $locationItem->inventory->quantity }}</td> --}}
                                     <td>
                                         <select name="location_items[{{ $locationItem->id }}][status]" class="form-control">
                                             <option value="bagus">Bagus</option>
@@ -67,11 +67,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="col-12 d-flex justify-content-end">
                     <button type="submit" id="saveButton" class="btn btn-primary">Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>
     </section>
+</div>
 @endsection
 @section('scripts')
     <script>
