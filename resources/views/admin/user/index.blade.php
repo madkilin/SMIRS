@@ -24,7 +24,11 @@
         <section class="section">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
+                    @if (Auth::user()->role_id == 2)
+                    <h4 class="card-title">Lihat Anggota</h4>
+                    @else
                     <h4 class="card-title">Kelola User</h4>
+                @endif
                     @if (Auth::user()->role_id == 1)
                         <!-- Hanya tampilkan tombol "Tambah" untuk admin -->
                         <div class="buttons">

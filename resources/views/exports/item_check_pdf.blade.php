@@ -40,7 +40,9 @@
             text-align: right;
             margin-top: 30px;
         }
-        
+        .table td.rataKiri {
+        text-align: left;
+    }
     </style>
 </head>
 <body>
@@ -51,8 +53,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nama Inventaris</th>
-                <th>Status</th>
+                <th>Kode Alokasi</th>
+                <th>Nama Barang</th>
+                <th>Kategori</th>
+                <th>Kondisi</th>
                 <th>Keterangan</th>
                 <th>Dicek Oleh</th>
                 <th>Tanggal Pengecekan</th>
@@ -61,10 +65,12 @@
         <tbody>
             @foreach($itemChecks as $check)
                 <tr>
-                    <td>{{ $check->inventory->name }}</td>
+                    <td>{{ $check->location_item_id }}</td>
+                    <td class="rataKiri">{{ $check->inventory->name }}</td>
+                    <td>{{ $check->inventory->category }}</td>
                     <td>{{ ucfirst($check->status) }}</td>
-                    <td>{{ $check->description }}</td>
-                    <td>{{ $check->user->name }}</td>
+                    <td class="rataKiri">{{ $check->description }}</td>
+                    <td class="rataKiri">{{ $check->user->name }}</td>
                     <td>{{ $check->created_at->format('d M Y H:i') }}</td>
                 </tr>
             @endforeach

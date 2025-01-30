@@ -79,11 +79,17 @@ class ItemCheckController extends Controller
     {
         $itemChecks = ItemCheck::with(['user', 'inventory'])->where('location_id', $location->id)->get();
         $pdf = Pdf::loadView('exports.item_check_pdf', compact('itemChecks', 'location'));
-        return $pdf->download('item_check_history.pdf');
+    
+        // Get the location name and append it to the file name
+        $locationName = str_replace(' ', ' ', $location->name); // Replace spaces with underscores
+        return $pdf->download("Riwayat Pengecekan inventaris Ruangan {$locationName}.pdf");
     }
 
-    public function exportExcel(Location $location)
-    {
-        return Excel::download(new ItemCheckExport($location), 'item_check_history.xlsx');
-    }
+public function exportExcel(Location $location)
+{
+    $locationName = str_replace(' ', '_', $location->name); // Replace spaces with underscores
+
+    return Excel::download(new ItemCheckExport($location), "Riwayat Pengecekan inventaris Ruangan {$locationName}.xlsx");
+}
+
 }

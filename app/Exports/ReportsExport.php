@@ -20,8 +20,9 @@ class ReportsExport implements FromCollection, WithHeadings
         // Map the ItemCheck collection to an array with the desired attributes
         return $this->itemChecks->map(function ($itemCheck) {
             return [
+                'Kode Alokasi'=> $itemCheck->location_item_id,
                 'Nama Barang' => $itemCheck->inventory->name,
-                'Jenis Barang' => $itemCheck->inventory->category,
+                'Kategori' => $itemCheck->inventory->category,
                 'Ruangan' => $itemCheck->location->name ?? '-',
                 'Kondisi' => ucfirst($itemCheck->status),
                 'Keterangan' => $itemCheck->description,
@@ -34,8 +35,9 @@ class ReportsExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
+            'Kode Alokasi',
             'Nama Barang',
-            'Jenis Barang',
+            'Kategori',
             'Ruangan',
             'Kondisi',
             'Keterangan',

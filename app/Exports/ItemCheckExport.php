@@ -22,18 +22,20 @@ class ItemCheckExport implements FromCollection, WithHeadings
             ->get()
             ->map(function($check) {
                 return [
-                    $check->inventory->name,
-                    ucfirst($check->status), // Capitalizing the first letter of the status
-                    $check->description,
-                    $check->user->name,
-                    $check->created_at->format('d M Y H:i'),
+                    $check->location_item_id,
+                    $check->inventory->name, 
+                    $check->inventory->category ,
+                    ucfirst($check->status) ,
+                    $check->description ,
+                    $check->user->name ,
+                    $check->created_at->format('d M Y H:i')
                 ];
             });
     }
 
     public function headings(): array
     {
-        return ['Nama Barang','Status','Keterangan', 'Dicek Oleh', 'Tanggal Pengecekan
+        return ['Kode Alokasi','Nama Barang','Kategori','Kondisi','Keterangan', 'Dicek Oleh', 'Tanggal Pengecekan
 '];
     }
 }

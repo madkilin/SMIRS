@@ -53,10 +53,14 @@
         <thead>
             <tr>
                 <th>No.</th>
+                <th>Kode Alokasi</th>
                 <th>Nama Barang</th>
+                <th>Kategori</th>
                 <th colspan="12">Pengecekan</th>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>Jan</td>
@@ -77,14 +81,16 @@
             @foreach($inventories as $index => $inventory)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $inventory['Nama Barang'] }}</td>
-                    <!-- Placeholder cells for monthly checks -->
+                    <td>{{ $inventory['id'] }}</td>
+                    <td>{{ $inventory['name'] }}</td>
+                    <td>{{ $inventory['category'] }}</td>
                     @for ($i = 0; $i < 12; $i++)
                         <td></td>
                     @endfor
                 </tr>
             @endforeach
         </tbody>
+        
     </table>
 
     <div class="notes">

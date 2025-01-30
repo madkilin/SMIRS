@@ -10,31 +10,51 @@
             font-size: 12px;
             margin: 20px;
         }
-        table {
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-top: 10px;
         }
-        table, th, td {
+        .table, .table th, .table td {
             border: 1px solid black;
         }
-        th, td {
+        .table th, .table td {
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
-        th {
+        .table th {
             background-color: #f2f2f2;
         }
+        .notes {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .signature-box {
+            text-align: right;
+            margin-top: 30px;
+        }
+        .table td.rataKiri {
+        text-align: left;
+    }
     </style>
 </head>
 <body>
-    <h1>Item Checks Report</h1>
-
-    <table>
+    <div class="title">
+        <p>Laporan Pengecekan Inventaris</p>
+    </div>
+    <table class="table">
         <thead>
             <tr>
+                <th>Kode Alokasi</th>
                 <th>Nama Barang</th>
-                <th>Jenis Barang</th>
+                <th>Kategori</th>
                 <th>Ruangan</th>
                 <th>Kondisi</th>
                 <th>Keterangan</th>
@@ -45,12 +65,13 @@
         <tbody>
             @foreach($itemChecks as $check)
                 <tr>
-                    <td>{{ $check->inventory->name }}</td>
+                    <td>{{ $check->location_item_id }}</td>
+                    <td class="rataKiri">{{ $check->inventory->name }}</td>
                     <td>{{ $check->inventory->category }}</td>
-                    <td>{{ $check->location->name ?? '-' }}</td>
+                    <td class="rataKiri">{{ $check->location->name ?? '-' }}</>
                     <td>{{ ucfirst($check->status) }}</td>
-                    <td>{{ $check->description }}</td>
-                    <td>{{ $check->user->name }}</td>
+                    <td class="rataKiri">{{ $check->description }}</td>
+                    <td class="rataKiri">{{ $check->user->name }}</td>
                     <td>{{ $check->created_at->format('d M Y H:i') }}</td>
                 </tr>
             @endforeach

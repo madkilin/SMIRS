@@ -72,7 +72,7 @@ class ReportsController extends Controller
         // Return the PDF download
 
 
-        return $pdf->download('item_checks_report.pdf');
+        return $pdf->download('Laporan Pengecekan Inventaris.pdf');
     }
 
     public function exportExcel(Request $request)
@@ -100,6 +100,6 @@ class ReportsController extends Controller
     session()->forget(['filter_status', 'filter_start_date', 'filter_end_date']);
 
     // Export the data to Excel
-    return Excel::download(new ReportsExport($itemChecks), 'item_checks_report.xlsx');
+    return Excel::download(new ReportsExport($itemChecks), 'Laporan Pengecekan Inventaris.xlsx');
 }
 }

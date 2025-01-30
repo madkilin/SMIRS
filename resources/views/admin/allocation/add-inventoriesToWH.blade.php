@@ -22,13 +22,12 @@
             </div>
         </div>
 
-
         <section class="section">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">Alokasi Gudang - {{ $location->name }}</h4>
                     <div class="buttons">
-                        <a href="{{ route('locations.index') }}" class="btn btn-secondary">Kembali</a>
+                        <a href="{{ route('admin.alokasi.index') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
                 <div class="card-body">

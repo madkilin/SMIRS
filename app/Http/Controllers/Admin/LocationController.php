@@ -178,17 +178,21 @@ class LocationController extends Controller
     }
     public function exportPdf(Location $location)
     {
-        // Get all inventories for this location, with quantity from the pivot table
-        $inventories = $location->inventories->map(function ($inventory) {
+        // Ambil semua LocationItems dan data terkait
+        $locationItems = LocationItem::with(['inventory'])->where('location_id', $location->id)->get();
+    
+        // Siapkan data inventaris
+        $inventories = $locationItems->map(function ($locationItem) {
             return [
-                'Nama Barang' => $inventory->name,
-                'Quantity' => $inventory->pivot->quantity,
+                'id' => $locationItem->id,
+                'name' => $locationItem->inventory->name,
+                'category' => $locationItem->inventory->category,
             ];
         });
-
-        // Generate PDF with the data
+    
+        // Generate PDF dengan data yang disiapkan
         $pdf = Pdf::loadView('exports.kartu_inventaris_medina_pdf', compact('inventories', 'location'));
-
+    
         return $pdf->download('kartu_inventaris_medina.pdf');
     }
 }
